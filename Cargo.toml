@@ -5,4 +5,4 @@ authors = ["nangtrongvuon"]
 edition = "2018"
 
 [dependencies]
-walkdir = '2'
+ignore = '0.4'
