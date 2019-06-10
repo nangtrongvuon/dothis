@@ -1,0 +1,8 @@
+[package]
+name = "dothis"
+version = "0.1.0"
+authors = ["nangtrongvuon"]
+edition = "2018"
+
+[dependencies]
+walkdir = '2'
