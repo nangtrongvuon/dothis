@@ -1,4 +1,7 @@
+extern crate clap;
+
 use std::io::BufRead;
+use std::env;
 use std::path::{Path};
 use ignore::{Walk};
 use std::io::{BufReader};
@@ -8,10 +11,36 @@ struct TodoSearcher<'a> {
 	trigger_words: Vec<&'a str>
 }
 
-fn main() {
+const VERSION: &str = env!("CARGO_PKG_VERSION");
+
+const USAGE: &str = "
+Usage: dothis [path]
+";
+
+fn main() {	
+	let mut args = Vec::new();
+
+	args.push(env::args().next().expect("there should be at least one path"));
+	for arg in env::args().skip(1) {
+		args.push(arg);
+	}
+
+	let arguments: Vec<&str> = args.iter().map(String::as_str).collect();
+
+	if arguments.contains(&"VERSION") {
+		println!("DoThis version: {}", VERSION);
+		return
+	}
+
+	if arguments.contains(&"help") {
+		println!("{}", USAGE);
+		return
+	}
+
 	let walker = Walk::new("./").into_iter();
 	let some_trigger_words = vec!["TODO", "dungle:"];
 	let todo_searcher = TodoSearcher::new(some_trigger_words);
+
     for entry in walker {
     	match entry {
     		Ok(entry) => {
