@@ -5,4 +5,5 @@ authors = ["nangtrongvuon"]
 edition = "2018"
 
 [dependencies]
+clap = '2.3'
 ignore = '0.4'
